@@ -1,11 +1,15 @@
 #!/usr/bin/env node
 
+const async = require('async')
 const bindAll = require('lodash/fp/bindAll')
-const partial = require('lodash/fp/partial')
+const delay = require('lodash/fp/delay')
+const isNil = require('lodash/fp/isNil')
+const pick = require('lodash/fp/pick')
 const OctoDash = require('octodash')
 const WebSocket = require('ws')
+const debug = require('debug')('powermate-websocket:command')
 const packageJSON = require('./package.json')
-const Powermate = require('./lib/powermate')
+const Server = require('./lib/server')
 
 const CLI_OPTIONS = [
   {
@@ -33,21 +37,38 @@ class Command {
     bindAll(Object.getOwnPropertyNames(Command.prototype), this)
 
     const octoDash = new OctoDash({ argv, cliOptions, name: packageJSON.name, version: packageJSON.version })
-    const { host, port } = octoDash.parseOptions()
+    this.serverOptions = pick(['host', 'port'], octoDash.parseOptions())
+  }
 
-    this.powermate = new Powermate()
-    this.server = new WebSocket.Server({ host, port })
+  restart() {
+    debug('restart')
+    async.series([this.stop, delay(5000), this.start], (error) => {
+      debug('restarted', error)
+      if (error) return this.restart()
+    })
   }
 
   run() {
-    this.powermate.on('error', this._onError)
-    this.powermate.on('click', partial(this._sendMessage, ['click']))
-    this.powermate.on('rotateLeft', partial(this._sendMessage, ['rotateLeft']))
-    this.powermate.on('rotateRight', partial(this._sendMessage, ['rotateRight']))
+    debug('run')
+    this.start((error) => {
+      debug('run -> start', error)
 
-    this.powermate.connect((error) => {
-      if (error) return this._onError(error)
+      if (error) return this.restart()
     })
+  }
+
+  start(callback) {
+    debug('start')
+    this.server = new Server(this.serverOptions)
+    this.server.once('error', this.restart)
+    this.server.start(callback)
+  }
+
+  stop(callback) {
+    debug('stop')
+    if (isNil(this.server)) return callback()
+
+    this.server.stop(callback)
   }
 
   _onError(error) {

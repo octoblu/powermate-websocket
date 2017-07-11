@@ -1,6 +1,6 @@
 {
   "name": "powermate-websocket",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "index.js",
   "repository": "git@github.com:octoblu/powermate-websocket.git",
   "author": "sqrtofsaturn <sqrtofsaturn@gmail.com>",
@@ -8,8 +8,11 @@
   "bin": {
     "powermate-websocket": "command.js"
   },
-  "scripts": {},
+  "scripts": {
+    "start": "node command.js"
+  },
   "dependencies": {
+    "async": "^2.5.0",
     "debug": "^2.6.8",
     "lodash": "^4.17.4",
     "node-hid": "^0.5.4",
