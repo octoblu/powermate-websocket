@@ -12,11 +12,11 @@
 
 set -u
 
-SCRIPT="/usr/local/bin/meshblu-connector-configurator-loader"
-USER="meshblu-connectors"
+SCRIPT="/usr/local/bin/powermate-websocket"
+USER="powermate-websocket"
 NAME="powermate-websocket"
-WORKING_DIRECTORY="/usr/share/meshblu-connectors"
-DESCRIPTION="Meshblu Connector PM2" 
+WORKING_DIRECTORY="/usr/share/powermate-websocket"
+DESCRIPTION="Powermate WebSocket"
 
 . /lib/lsb/init-functions
 . "/etc/default/powermate-websocket"
@@ -25,7 +25,7 @@ LOGDIR="/var/log/powermate-websocket"
 LOGFILE="$LOGDIR/run.log"
 
 mkdir -p "$LOGDIR"
-chown -R "meshblu-connectors:meshblu-connectors" "$LOGDIR"
+chown -R "powermate-websocket:powermate-websocket" "$LOGDIR"
 
 do_start() {
   start-stop-daemon --start \
