@@ -1,0 +1,4 @@
+/etc/default/powermate-websocket
+/etc/init/powermate-websocket.conf
+/etc/init.d/powermate-websocket
+/etc/systemd/system/powermate-websocket.service

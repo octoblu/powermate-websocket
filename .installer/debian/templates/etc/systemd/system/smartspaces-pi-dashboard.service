@@ -1,0 +1,12 @@
+[Unit]
+Description=Smartspaces Pi Dashboard
+Requires=network.target
+
+[Service]
+Type=simple
+#POSTINSTALL_USER_HOOK
+PermissionsStartOnly=true
+ExecStart=/usr/local/bin/powermate-websocket
+
+[Install]
+WantedBy=multi-user.target
