@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const bindAll = require('lodash/fp/bindAll')
 const partial = require('lodash/fp/partial')
 const OctoDash = require('octodash')
