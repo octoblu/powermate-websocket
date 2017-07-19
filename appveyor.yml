@@ -30,6 +30,6 @@ test_script:
   - yarn test
 after_test:
   - meshblu-connector-pkger
-  - meshblu-connector-installer-windows-msi --destination-path=bin
-  - meshblu-connector-installer-windows-msi --destination-path=bin --user-install
+  - meshblu-connector-installer-windows-msi --destination-path=connectors-no-config
+  - meshblu-connector-installer-windows-msi --destination-path=connectors-no-config --user-install
   - meshblu-connector-uploader-github

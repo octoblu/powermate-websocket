@@ -1,12 +1,6 @@
 <Include>
   <ComponentRef Id="INSTALLDIR_comp" />
   <Component Id="PowermateWebsocket" Guid="AA984FDB-B6F6-436B-BAD0-E6E92C67975C" Directory="INSTALLDIR">
-    <RegistryValue Id="PowermateWebsocket.rst" Root="HKMU" Action="write"
-                   Key="Software\Microsoft\Windows\CurrentVersion\Run"
-                   Name="PowermateWebsocket"
-                   Value="&quot;[INSTALLDIR]powermate-websocket.exe&quot;"
-                   Type="string" />
-    <Condition>ASSISTANCE_START_VIA_REGISTRY</Condition>
   </Component>
   <ComponentRef Id="PowermateWebsocket" />
 </Include>
