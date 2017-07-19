@@ -4,7 +4,7 @@
     <RegistryValue Id="PowermateWebsocket.rst" Root="HKMU" Action="write"
                    Key="Software\Microsoft\Windows\CurrentVersion\Run"
                    Name="PowermateWebsocket"
-                   Value="&quot;[INSTALLDIR]PowermateWebsocket.exe&quot;"
+                   Value="&quot;[INSTALLDIR]powermate-websocket.exe&quot;"
                    Type="string" />
     <Condition>ASSISTANCE_START_VIA_REGISTRY</Condition>
   </Component>
