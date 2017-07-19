@@ -1,6 +1,0 @@
-<Include>
-  <ComponentRef Id="INSTALLDIR_comp" />
-  <Component Id="PowermateWebsocket" Guid="AA984FDB-B6F6-436B-BAD0-E6E92C67975C" Directory="INSTALLDIR">
-  </Component>
-  <ComponentRef Id="PowermateWebsocket" />
-</Include>
