@@ -36,30 +36,46 @@
       background-color: #ddd;
       padding: 1vmin;
     }
+
+    .error {
+      color: red;
+    }
   </style>
 </head>
 <body>
   <div>
     <h1>Powermate Websocket Test</h1>
-    <p>Please enter the websocket url</p>
-    <form>
-      <input id="url" name="url" value="ws://localhost:52052" />
-      <button type="submit">Connect</button>
-    </form>
+    <div id="content">
+      <p>Please enter the websocket url</p>
+      <form>
+        <input id="url" name="url" value="ws://localhost:52052" />
+        <button type="submit">Connect</button>
+      </form>
+    </div>
   </div>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
   <script type="text/javascript">
+    function onError(error) {
+      console.error(error)
+      $('#content').html('<h4 class="error">An Error occured. Check JS console for more info.</h4>')
+    }
+
     function onMessage(message) {
-      console.log('onMessage', message)
       $('#messages').append(message.data + '\n')
+    }
+
+    function onOpen() {
+      $('#content').html('<pre id="messages"></pre>')
     }
 
     function onSubmit($event) {
       $event.preventDefault()
       const socket = new WebSocket($('#url').val())
-      $('form').html('<pre id="messages"></pre>')
+      $('#content').html('<img src="ripple.svg" alt="loading"/>')
+      socket.addEventListener('open', onOpen)
       socket.addEventListener('message', onMessage)
+      socket.addEventListener('error', onError)
     }
 
     $(function(){
