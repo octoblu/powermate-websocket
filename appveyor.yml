@@ -30,6 +30,6 @@ test_script:
   - yarn test
 after_test:
   - meshblu-connector-pkger
-  - meshblu-connector-installer-windows-msi --destination-path=powermate-websocket
-  - meshblu-connector-installer-windows-msi --destination-path=powermate-websocket --user-install
+  - meshblu-connector-installer-windows-msi
+  - meshblu-connector-installer-windows-msi --user-install
   - meshblu-connector-uploader-github

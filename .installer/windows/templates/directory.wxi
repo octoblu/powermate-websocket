@@ -2,8 +2,8 @@
   <Directory Id='TARGETDIR' Name='SourceDir'>
     <Directory Id='ProgramFiles$(var.If64)Folder' Name='PFiles'>
       <Directory Id='MeshbluConnectors_Folder' Name='MeshbluConnectors'>
-        <Directory Id='MeshbluConnectors_Folder' Name='connectors-no-config'>
-          <Directory Id='INSTALLDIR' Name='$(var.DestinationPath)'>
+        <Directory Id='ConnectorsNoConfig_Folder' Name='connectors-no-config'>
+          <Directory Id='INSTALLDIR' Name='powermate-websocket'>
           </Directory>
         </Directory>
       </Directory>
