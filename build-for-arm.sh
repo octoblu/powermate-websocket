@@ -4,7 +4,9 @@
 #   --env-file .env \
 #   octoblu/meshblu-connector-builder:linux-armv7 /bin/bash
 
-docker run --rm --volume $PWD:/work \
+docker run --rm \
+  --volume $PWD:/work \
+  --volume /work/node_modules \
   --env-file .env \
   octoblu/meshblu-connector-builder:linux-armv7 \
     bash -c 'export HOME=/tmp/cache \
