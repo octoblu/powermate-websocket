@@ -14,26 +14,42 @@ env:
 os: linux
 dist: trusty
 language: shell
-sudo: required
-services:
-- docker
-install:
-- docker pull octoblu/meshblu-connector-builder:linux-armv7
-script:
-- |
-  docker run --rm --volume $PWD:/work \
-    --env TRAVIS_REPO_SLUG=$TRAVIS_REPO_SLUG \
-    --env TRAVIS_BRANCH=$TRAVIS_BRANCH \
-    --env MESHBLU_CONNECTOR_UPLOADER_GITHUB_TOKEN=$MESHBLU_CONNECTOR_UPLOADER_GITHUB_TOKEN \
-    --env AWS_REGION=$AWS_REGION \
-    --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
-    --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
-    --env MESHBLU_CONNECTOR_ENCRYPTION_PASSWORD=$MESHBLU_CONNECTOR_ENCRYPTION_PASSWORD \
-    --env MESHBLU_CONNECTOR_CERT_PASSWORD=$MESHBLU_CONNECTOR_CERT_PASSWORD \
-    octoblu/meshblu-connector-builder:linux-armv7 \
-      bash -c 'export HOME=/tmp/cache \
-        && meshblu-connector-pkger \
-        && meshblu-connector-installer-debian --destination-path=/usr/local/bin \
-        && meshblu-connector-uploader-github \
-        && upload-deb-s3 \
-      '
+matrix:
+  fast_finish: true
+  include:
+    - os: 'linux'
+      language: 'node_js'
+      node_js: '8'
+      deploy:
+        provider: npm
+        email: serveradmin@octoblu.com
+        api_key:
+          secure: rZXnGxlY5txEJtAY7biUwfGezByHvUmjrTF/j1zuAL1JgVOYDyiJkk1PLK13x4gujXitzvDCw9ta0OJiP4J0aCWlDNC8zdThg7Le5rt2pRjMaWH9qU/vDPSgPvxsyJ30Z/S9WsVsb4IgQfxINu41PThUaBxnnFvckDEdnBD7cE270P3rXDr9nj796jst2rF1g4YqjEpptBkZTM/qAdvlqsOkYG3iuXcCZ6LrALDKDsaAeyERqaOg0HFDBUnmG8Y0ztxt1n50TEk+eYmu+S2GNm6BjRqJaXR4WRAAHTb5i/Nxr72sNNhUW8g1g7d6GkwFpUFKX8ZETtmdh0N42lMdZwKUtbjlFRv5JkJ6ucAuh01IwJoZsnS6rVHEKm3pSm8bKfXqAvuVIsJEBgyc0898pWQ6WA7gmjbuJnBJd7V78pTirHwExF/XSblmZul0oSasnkcizawv6gx6rXA7kLBVHMu9ZUAYwz0aEmcX3kCFQFNqPr8EvteKRl7sZPMdoUSaIqE9cSagDZnwP9rS/gOc7/trL1B4sihO0Dc9z8VbRMdXu0AUzylVwZEeon2zzoisZAthiOSBzs4zX0gRK2D8qjaw5wwy/bl5CTMoQt/POzZ0yR8to25yLFtM2pbHtBtK1csAFEXD8HFjPHhURucp75l5x6Ur3QctxOrCfIJHTis=
+        on:
+          tags: true
+          repo: octoblu/powermate-websocket
+    - os: 'linux'
+      sudo: required
+      language: 'shell'
+      services:
+      - docker
+      install:
+      - docker pull octoblu/meshblu-connector-builder:linux-armv7
+      script:
+      - |
+        docker run --rm --volume $PWD:/work \
+          --env TRAVIS_REPO_SLUG=$TRAVIS_REPO_SLUG \
+          --env TRAVIS_BRANCH=$TRAVIS_BRANCH \
+          --env MESHBLU_CONNECTOR_UPLOADER_GITHUB_TOKEN=$MESHBLU_CONNECTOR_UPLOADER_GITHUB_TOKEN \
+          --env AWS_REGION=$AWS_REGION \
+          --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+          --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+          --env MESHBLU_CONNECTOR_ENCRYPTION_PASSWORD=$MESHBLU_CONNECTOR_ENCRYPTION_PASSWORD \
+          --env MESHBLU_CONNECTOR_CERT_PASSWORD=$MESHBLU_CONNECTOR_CERT_PASSWORD \
+          octoblu/meshblu-connector-builder:linux-armv7 \
+            bash -c 'export HOME=/tmp/cache \
+              && meshblu-connector-pkger \
+              && meshblu-connector-installer-debian --destination-path=/usr/local/bin \
+              && meshblu-connector-uploader-github \
+              && upload-deb-s3 \
+            '
