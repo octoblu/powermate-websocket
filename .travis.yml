@@ -22,7 +22,7 @@ matrix:
       node_js: '8'
       before_install:
         - sudo apt-get -qq update
-        - sudo apt-get install -y libusb
+        - sudo apt-get install -y libusb-1.0-0 libusb-1.0-0-dev libudev-dev
       deploy:
         provider: npm
         email: serveradmin@octoblu.com
