@@ -13,12 +13,12 @@ const Server = require('./lib/server')
 
 const CLI_OPTIONS = [
   {
-    names: ['host'],
+    names: ['hostname'],
     type: 'string',
     required: true,
-    env: 'POWERMATE_WEBSOCKET_HOST',
+    env: 'POWERMATE_WEBSOCKET_HOSTNAME',
     help: 'The host where to bind the server (Use 0.0.0.0 to listen to all incoming connections)',
-    helpArg: 'PATH',
+    helpArg: 'HOST',
     default: 'localhost',
   },
   {
@@ -37,7 +37,7 @@ class Command {
     bindAll(Object.getOwnPropertyNames(Command.prototype), this)
 
     const octoDash = new OctoDash({ argv, cliOptions, name: packageJSON.name, version: packageJSON.version })
-    this.serverOptions = pick(['host', 'port'], octoDash.parseOptions())
+    this.serverOptions = pick(['hostname', 'port'], octoDash.parseOptions())
   }
 
   restart() {
