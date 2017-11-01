@@ -46,7 +46,8 @@ describe('Server', function() {
 
       it('should emit left', function() {
         expect(JSON.parse(this.message)).to.deep.equal({
-          data: { action: 'rotateLeft' },
+          data: { data: { action: 'rotateLeft' } },
+          metadata: { type: "message" },
         })
       })
     })
@@ -63,7 +64,8 @@ describe('Server', function() {
 
       it('should emit right', function() {
         expect(JSON.parse(this.message)).to.deep.equal({
-          data: { action: 'rotateRight' },
+          data: { data: { action: 'rotateRight' } },
+          metadata: { type: "message" },
         })
       })
     })
