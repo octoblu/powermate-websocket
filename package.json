@@ -1,6 +1,6 @@
 {
   "name": "powermate-websocket",
-  "version": "1.4.11",
+  "version": "1.4.12",
   "main": "index.js",
   "repository": "git@github.com:octoblu/powermate-websocket.git",
   "author": "sqrtofsaturn <sqrtofsaturn@gmail.com>",
